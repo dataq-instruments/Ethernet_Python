@@ -3,7 +3,7 @@ import struct
 import time
 import random
 
-class DataQDAQ:
+class DataqDAQ:
     DEFAULT_PORT = 51235
     DEFAULT_LOCAL_PORT = 1234
     DQ_COMMAND = 0x31415926
@@ -146,14 +146,9 @@ class DataQDAQ:
     def read_adc_data(self):
         try:
             data, _ = self.sock.recvfrom(2048)
-            #print(data.hex())
             return self.parse_adc_data(data)
         except socket.timeout:
             return None
-
-
-    def read_voltage_as_flow(self):
-        self.read_adc_data()
 
     def close(self):
         self.sock.close()
@@ -161,7 +156,7 @@ class DataQDAQ:
 def main():
     try:
         # Create DAQ instance (discover if no IP provided)
-        daq = DataQDAQ()
+        daq = DataqDAQ()
         daq.connect()
         print("Connected to DAQ")
         
@@ -171,11 +166,11 @@ def main():
         
         decimation = 500
         deca = 4
-        srate = 30000
+        mysrate = 30000
 
         print(daq.set_decimation(decimation))
         print(daq.set_deca(deca))
-        print(daq.set_sample_rate(srate=srate))
+        print(daq.set_sample_rate(srate=mysrate))
         
         time.sleep(0.2)
         
@@ -193,7 +188,7 @@ def main():
         print("Acquisition started. Press Ctrl+C to stop.")
 
         while True:
-            daq.read_voltage_as_flow()
+            daq.read_adc_data()
             time.sleep(1.0)
             daq.keep_alive()
 
