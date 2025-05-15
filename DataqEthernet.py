@@ -18,7 +18,7 @@ class DataQDAQ:
         else:
             self.ip_address = self.discover_device()
         if not self.ip_address:
-            raise RuntimeError("No DataQ device found on the network.")
+            raise RuntimeError("No Dataq device found on the network.")
         
         hostname = socket.gethostname()
         IPAdr = socket.gethostbyname(hostname)
@@ -40,7 +40,7 @@ class DataQDAQ:
         discovery_sock.sendto(discovery_msg, ('<broadcast>', discovery_port))
         try:
             data, addr = discovery_sock.recvfrom(1024)
-            print(f"Discovered DataQ device at {addr[0]}")
+            print(f"Discovered Dataq device at {addr[0]}")
             return addr[0]
         except socket.timeout:
             return None
