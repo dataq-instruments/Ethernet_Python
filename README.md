@@ -30,7 +30,7 @@ Samples: [1, 1, 1, 0, -3, -1, 1, 1]\
 Samples: [1, 1, 1, 0, -2, -1, 1, 1]\
 Samples: [2, 2, 1, 0, -1, -1, 1, 1]\
 Samples: [2, 2, 1, 0, -1, -1, 1, 1]\
-Samples: [2, 2, 1, 0, -1, -1, 1, 1]\
+Samples: [2, 2, 1, 0, -1, -1, 1, 1]
 
 User stopped logging.\
 Stopping and cleaning up...\
