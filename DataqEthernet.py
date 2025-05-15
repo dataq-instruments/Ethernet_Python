@@ -90,12 +90,6 @@ class DataQDAQ:
     def info(self, index):
         return self._send_command(command_code=13, payload_str=f"info {index}")
 
-    def set_encode_ascii(self):
-        return self._send_command(command_code=13, payload_str="encode 1")
-    
-    def set_encode_binary(self):
-        return self._send_command(command_code=13, payload_str="encode 0")
-
     def set_scan_list(self, index, config):
         return self._send_command(command_code=13, payload_str=f"slist {index} {config}")
 
@@ -109,9 +103,6 @@ class DataQDAQ:
         if setting is not None:
             return self._send_command(command_code=13, payload_str=f"keepalive {setting}")
         return self._send_command(command_code=12, payload_str="KeepAlive", ignore_response=True)
-
-    def get_keep_alive(self):
-        return self._send_command(command_code=13, payload_str="keepalive")
 
     def stop_acquisition(self):
         return self._send_command(command_code=13, payload_str="stop")
@@ -131,19 +122,9 @@ class DataQDAQ:
     def get_serial_number(self):
         return self.info(6)
     
-    def send_slave_ip_empty(self):
-        return self._send_command(command_code=5, arg0=0xFFFFFFFF, arg1=0, arg2=0)
-
     def set_packet_size(self, sizeidx):
         return self._send_command(command_code=13, payload_str=f"ps {sizeidx}")
 
-    def read_measurement(self):
-        try:
-            data, _ = self.sock.recvfrom(1024)
-            return data.decode('ascii').strip()
-        except socket.timeout:
-            return None
-    
     def parse_adc_data(self, data):
         if len(data) < 16:
             return None  # not enough data
