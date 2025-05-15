@@ -4,7 +4,7 @@ A simple python example to discover 4108/4208/4718/4730 ethernet mode, start/sto
 
 Here is a sample output:
 
-============= RESTART: C:\Users\MyName\Desktop\DataqDAQ.py =============\
+============= RESTART: C:\Users\MyName\Desktop\DataqEthernet.py =============\
 Discovered DataQ device at 192.168.0.29\
 Local IP: 192.168.0.19\
 Connected to DAQ\
