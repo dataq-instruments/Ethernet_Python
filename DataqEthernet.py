@@ -8,6 +8,7 @@ class DataqDAQ:
     DEFAULT_LOCAL_PORT = 1234
     DQ_COMMAND = 0x31415926
     DQ_RESPONSE = 0x21712818
+	DQ_RESPONSE2 = 0x014142135 
     DQ_ADCDATA = 0x14142135
     
     def __init__(self, ip_address=None, port=DEFAULT_PORT, group_id=None):
