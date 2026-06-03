@@ -62,12 +62,17 @@ class DataqDAQ:
             return None
 
     def _parse_response(self, response):
-        header = struct.unpack('<IIII', response[:16])
-        if header[0] != self.DQ_RESPONSE:
-            raise ValueError("Invalid response header")
-        length = header[3]
-        payload = response[16:16+length].decode('ascii').strip()
-        return payload
+		header = struct.unpack('<IIII', response[:16])
+		if (header[0] == self.DQ_RESPONSE):
+			length = header[3]
+			payload = response[16:16 + length].decode('ascii').strip()
+			return payload
+		elif (header[0] == self.DQ_RESPONSE2):
+			length = header[3]
+			payload = response[16:16 + length].decode('ascii').strip()
+			return payload
+		else:
+			raise ValueError("Invalid response header") 
     
     def get_local_ip(self, remote_ip):
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -85,7 +90,7 @@ class DataqDAQ:
         return self._send_command(command_code=10, arg0=local_port, arg1=mode, arg2=0, payload_str=local_ip)
 
     def disconnect(self):
-        return self._send_command(command_code=11)
+		return self._send_command(command_code=11, ignore_response=True)
 
     def info(self, index):
         return self._send_command(command_code=13, payload_str=f"info {index}")
@@ -105,7 +110,7 @@ class DataqDAQ:
         return self._send_command(command_code=12, payload_str="KeepAlive", ignore_response=True)
 
     def stop_acquisition(self):
-        return self._send_command(command_code=13, payload_str="stop")
+        return self._send_command(command_code=13, payload_str="stop", ignore_response=True)
 
     def set_filter(self, channel, mode):
         return self._send_command(command_code=13, payload_str=f"filter {channel} {mode}")
